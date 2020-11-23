@@ -3,8 +3,11 @@ package main
 import "fmt"
 
 func Romantolnt(romanNum string)int {
+	//初始化
 	roma := make(map[string]int)
+	//定义返回值
 	var sum int = 0
+	//写映射
 	roma["I"] = 1
 	roma["V"] = 5
 	roma["X"] = 10
@@ -12,6 +15,7 @@ func Romantolnt(romanNum string)int {
 	roma["C"] = 100
 	roma["D"] = 500
 	roma["M"] = 1000
+	//构造切片
 	str := []byte(romanNum)
 	for i := 0; i < len(romanNum); i ++ {
 		if i < len(romanNum) - 1 {
