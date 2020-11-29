@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	request := "http://www.ccnu.edu.cn"
+	request := "https://www.jianshu.com/"
 	rsp, err := http.Get(request)
 	if err != nil {
 		log.Println(err.Error())
@@ -26,7 +26,7 @@ func main() {
 	defer rsp.Body.Close()
 
 	doc := soup.HTMLParse(content)
-	subDocs := doc.FindAll()
+	subDocs := doc.FindAll("div","class","row")
 	for _, subDoc := range subDocs {
 		link := subDoc.Find("a")
 		fmt.Println(link.Text())
