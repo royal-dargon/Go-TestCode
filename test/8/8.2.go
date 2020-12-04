@@ -9,7 +9,7 @@ func main() {
 	var drink map[string]string
 	drink = make(map[string]string,5)
 	drink["cola"] = "可乐"
-	drink["coffe"]= "咖啡"
+	drink["coffee"]= "咖啡"
 	drink["tea"]  = "茶"
 	drink["wine"] = "红酒"
 	for key,value := range drink {
