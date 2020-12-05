@@ -11,6 +11,8 @@ type user struct {
 	password string
 }
 
+var userDate = make(map[string]user)
+
 //稀里糊涂的混子处理
 func hello(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "你好！", r.URL.Path)
@@ -18,13 +20,14 @@ func hello(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "请求头中的所有信息：", r.Header)
 }
 
-var a user
 
 //注册系统
 func register(w http.ResponseWriter, r *http.Request) {
+	var a user
 	fmt.Fprintln(w, "register")
 	a.username = r.FormValue("username")
 	a.password = r.FormValue("password")
+	userDate[a.username] = a
 	fmt.Fprintln(w, "注册成功！")
 }
 
@@ -34,10 +37,17 @@ func login(w http.ResponseWriter, r *http.Request) {
 	b := new(user)
 	b.username = r.FormValue("username")
 	b.password = r.FormValue("password")
-	if a.username == b.username && a.password == b.password {
-		fmt.Fprintln(w, "登录成功！")
-	} else {
+	//验证账号是否正确
+	use,ok := userDate[b.username] 
+	if !ok {
+		fmt.Fprintln(w,"非法登录！")
+		return
+	}
+	if use.password != b.password{
 		fmt.Fprintf(w, "非法登录！")
+		return
+	} else {
+		fmt.Fprintln(w,"登录成功!")
 	}
 }
 
@@ -48,13 +58,20 @@ func changepassword(w http.ResponseWriter, r *http.Request) {
 	b := new(user)
 	b.username = r.FormValue("username")
 	b.password = r.FormValue("password")
-	if a.username == b.username && a.password == b.password {
-		a.password = r.FormValue("chaangep")
-		a.username = b.username
-		fmt.Fprintln(w, "修改成功!")
-	} else {
-		fmt.Fprintln(w, "非法修改！")
+	use,ok := userDate[b.username]
+	if !ok {
+		fmt.Fprintln(w,"非法修改！")
+		return
 	}
+
+	if use.password != b.password {
+		fmt.Fprintln(w,"非法修改！")
+		return
+	} else {
+		use.password = r.FormValue("chaangep")
+	    userDate[b.username] = use
+		fmt.Fprintln(w, "修改成功!")
+	} 
 }
 
 //修改用户名
@@ -63,17 +80,24 @@ func changeusername(w http.ResponseWriter, r *http.Request) {
 	b := new(user)
 	b.username = r.FormValue("username")
 	b.password = r.FormValue("password")
-	if a.username == b.username && a.password == b.password {
-		a.username = r.FormValue("changename")
-		fmt.Fprintln(w, "修改成功！")
-	} else {
-		fmt.Fprintln(w, "非法修改！")
+	use,ok := userDate[b.username]
+	if !ok {
+		fmt.Fprintln(w,"非法修改!")
+		return
 	}
+
+	if use.password != b.password {
+		fmt.Fprintln(w,"修改失败!")
+		return 
+	} else {
+		use.username = r.FormValue("changename")
+		userDate[use.username] = use
+		fmt.Fprintln(w, "修改成功！")
+	} 
 }
 
 func main() {
 	http.HandleFunc("/hello", hello)
-	fmt.Println(a)
 	http.HandleFunc("/register", register)
 	http.HandleFunc("/login", login)
 	http.HandleFunc("/changepassword", changepassword)
