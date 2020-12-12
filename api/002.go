@@ -20,7 +20,6 @@ func hello(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "请求头中的所有信息：", r.Header)
 }
 
-
 //注册系统
 func register(w http.ResponseWriter, r *http.Request) {
 	var a user
@@ -38,16 +37,16 @@ func login(w http.ResponseWriter, r *http.Request) {
 	b.username = r.FormValue("username")
 	b.password = r.FormValue("password")
 	//验证账号是否正确
-	use,ok := userDate[b.username] 
+	use, ok := userDate[b.username]
 	if !ok {
-		fmt.Fprintln(w,"非法登录！")
+		fmt.Fprintln(w, "非法登录！")
 		return
 	}
-	if use.password != b.password{
+	if use.password != b.password {
 		fmt.Fprintf(w, "非法登录！")
 		return
 	} else {
-		fmt.Fprintln(w,"登录成功!")
+		fmt.Fprintln(w, "登录成功!")
 	}
 }
 
@@ -58,20 +57,20 @@ func changepassword(w http.ResponseWriter, r *http.Request) {
 	b := new(user)
 	b.username = r.FormValue("username")
 	b.password = r.FormValue("password")
-	use,ok := userDate[b.username]
+	use, ok := userDate[b.username]
 	if !ok {
-		fmt.Fprintln(w,"非法修改！")
+		fmt.Fprintln(w, "非法修改！")
 		return
 	}
 
 	if use.password != b.password {
-		fmt.Fprintln(w,"非法修改！")
+		fmt.Fprintln(w, "非法修改！")
 		return
 	} else {
 		use.password = r.FormValue("chaangep")
-	    userDate[b.username] = use
+		userDate[b.username] = use
 		fmt.Fprintln(w, "修改成功!")
-	} 
+	}
 }
 
 //修改用户名
@@ -80,20 +79,20 @@ func changeusername(w http.ResponseWriter, r *http.Request) {
 	b := new(user)
 	b.username = r.FormValue("username")
 	b.password = r.FormValue("password")
-	use,ok := userDate[b.username]
+	use, ok := userDate[b.username]
 	if !ok {
-		fmt.Fprintln(w,"非法修改!")
+		fmt.Fprintln(w, "非法修改!")
 		return
 	}
 
 	if use.password != b.password {
-		fmt.Fprintln(w,"修改失败!")
-		return 
+		fmt.Fprintln(w, "修改失败!")
+		return
 	} else {
 		use.username = r.FormValue("changename")
 		userDate[use.username] = use
 		fmt.Fprintln(w, "修改成功！")
-	} 
+	}
 }
 
 func main() {
