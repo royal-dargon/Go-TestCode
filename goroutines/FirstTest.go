@@ -1,19 +1,20 @@
-/*
 package main
 
-type value struct {
-	mu sync.Mutex
-	value int
-}
+import (
+	"fmt"
+	"sync"
+)
 
 var wg sync.WaitGroup
-printSum := func(v1, v2 *value) {
-	defer wg.Done()
-	v1.mu.Lock()
-	defer v1.mu.Unlock()
-	time.Sleep(2*time.Second)
-	v2.mu.Lock()
-	defer v2.mu.Unlock()
 
+func main(){
+	wg.Add(10000) // 发送令牌
+	for i := 0; i < 10000; i ++{
+		go func(i int) {
+			fmt.Println("hello",i)
+			wg.Done() // 回收令牌
+		}(i)
+	}
+	fmt.Println("hello main")
+	wg.Wait()   // 等待令牌全部回收
 }
-*/
