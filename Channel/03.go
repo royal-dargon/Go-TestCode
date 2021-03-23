@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"time"
+	//"time"
 )
 
 // work_pool
@@ -11,7 +11,7 @@ func worker(id int, jobs <-chan int, results chan<- int){
 	for job := range jobs{
 		fmt.Printf("worker:%d start job:%d\n",id, job)
 		results <- job * 2
-		time.Sleep(time.Second)
+		//time.Sleep(time.Second)
 		fmt.Printf("worker:%d stop job:%d\n",id, job )
 	}
 }
