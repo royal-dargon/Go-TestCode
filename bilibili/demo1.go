@@ -10,7 +10,7 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-func main() {
+func demo() {
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", "https://api.bilibili.com/x/web-interface/web/channel/multiple/list?channel_id=5417&sort_type=hot&page_size=30", nil)
 	if err != nil {
@@ -39,4 +39,8 @@ func main() {
 		fmt.Println(name, view_count, like_count, author_name, author_id, bvid)
 	}
 
+}
+
+func main() {
+	demo()
 }
