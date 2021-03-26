@@ -10,9 +10,10 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-func demo() {
+func Worker(i int) {
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", "https://api.bilibili.com/x/web-interface/web/channel/multiple/list?channel_id=5417&sort_type=hot&page_size=30", nil)
+	temp := strconv.Itoa(i)
+	req, err := http.NewRequest("GET", "https://api.bilibili.com/x/web-interface/web/channel/multiple/list?channel_id="+temp+"&sort_type=hot&page_size=30", nil)
 	if err != nil {
 		panic(err)
 		fmt.Println(err)
@@ -28,19 +29,16 @@ func demo() {
 		panic(err2)
 	}
 	//fmt.Printf("%s", result)
-	for i := 0; i < 30; i++ {
-		num := strconv.Itoa(i)
-		name := gjson.Get(string(result), "data.list."+num+".name")
-		view_count := gjson.Get(string(result), "data.list."+num+".view_count")
-		like_count := gjson.Get(string(result), "data.list."+num+".like_count")
-		author_name := gjson.Get(string(result), "data.list."+num+".author_name")
-		author_id := gjson.Get(string(result), "data.list."+num+".author_id")
-		bvid := gjson.Get(string(result), "data.list."+num+".bvid")
+	for count := 0; count <= 30; count++ {
+		num := strconv.Itoa(count)
+		channel_id = count
+		name = gjson.Get(string(result), "data.list."+num+".name")
+		view_count = gjson.Get(string(result), "data.list."+num+".view_count")
+		like_count = gjson.Get(string(result), "data.list."+num+".like_count")
+		author_name = gjson.Get(string(result), "data.list."+num+".author_name")
+		author_id = gjson.Get(string(result), "data.list."+num+".author_id")
+		bvid = gjson.Get(string(result), "data.list."+num+".bvid")
 		fmt.Println(name, view_count, like_count, author_name, author_id, bvid)
 	}
 
-}
-
-func main() {
-	demo()
 }
