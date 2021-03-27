@@ -10,7 +10,7 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-func Worker(i int) {
+func WorkerOne(i int) {
 	client := &http.Client{}
 	temp := strconv.Itoa(i)
 	req, err := http.NewRequest("GET", "https://api.bilibili.com/x/web-interface/web/channel/multiple/list?channel_id="+temp+"&sort_type=hot&page_size=30", nil)
