@@ -44,3 +44,12 @@ func TestInfo(Name string, PassWord string) (string, error) {
 	}
 	return temp.UserId, nil
 }
+
+//获取我的页面用户信息的函数
+func GetUserInfo(Id string) (UserInfo, error) {
+	var temp UserInfo
+	if err := DB.Table("users").Where("user_id = ?", Id).Find(&temp).Error; err != nil {
+		return UserInfo{}, err
+	}
+	return temp, nil
+}

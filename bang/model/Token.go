@@ -1,6 +1,7 @@
 package model
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"time"
@@ -44,4 +45,22 @@ func genToken(claims JwtClaims) (string, error) {
 		return "", err
 	}
 	return signedToken, nil
+}
+
+//验证token的函数
+func VerifyToken(token string) (string, error) {
+	TempToken, err := jwt.ParseWithClaims(token, &JwtClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(key), nil
+	})
+	if err != nil {
+		return "", errors.New("token解析失败")
+	}
+	claims, ok := TempToken.Claims.(*JwtClaims)
+	if !ok {
+		return "", errors.New("发生错误")
+	}
+	if err := TempToken.Claims.Valid(); err != nil {
+		return "", errors.New("发生错误")
+	}
+	return claims.UserId, nil
 }

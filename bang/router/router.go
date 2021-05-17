@@ -9,4 +9,9 @@ import (
 func Router(r *gin.Engine) {
 	r.POST("/registe", handler.Register)
 	r.POST("/login", handler.Login)
+	//我的页面
+	v1 := r.Group("/user")
+	{
+		v1.GET("/", handler.HomePage)
+	}
 }
