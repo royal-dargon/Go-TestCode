@@ -13,5 +13,7 @@ func Router(r *gin.Engine) {
 	v1 := r.Group("/user")
 	{
 		v1.GET("/", handler.HomePage)
+		v1.GET("/myrelease", handler.MyRelease)
+		v1.GET("/mystore", handler.Mystore)
 	}
 }
