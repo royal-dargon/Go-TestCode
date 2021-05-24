@@ -1,0 +1,121 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a project made by CCNU",
+        "title": "2021-bang",
+        "contact": {},
+        "version": "1.0"
+    },
+    "paths": {
+        "/login": {
+            "post": {
+                "description": "\"验证用户的信息进行登入\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "login"
+                ],
+                "summary": "\"登入\"",
+                "parameters": [
+                    {
+                        "description": "User",
+                        "name": "User",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UserInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "登入成功",
+                        "schema": {
+                            "$ref": "#/definitions/model.Token"
+                        }
+                    },
+                    "400": {
+                        "description": "输入格式错误"
+                    },
+                    "401": {
+                        "description": "密码或者昵称输入错误"
+                    },
+                    "404": {
+                        "description": "用户不存在"
+                    }
+                }
+            }
+        },
+        "/registe": {
+            "post": {
+                "description": "\"注册一个新用户\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "register"
+                ],
+                "summary": "\"注册\"",
+                "parameters": [
+                    {
+                        "description": "user",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UserInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "注册成功"
+                    },
+                    "400": {
+                        "description": "输入格式有误"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.Token": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.UserInfo": {
+            "type": "object",
+            "properties": {
+                "really_name": {
+                    "type": "string"
+                },
+                "user_college": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                },
+                "user_password": {
+                    "type": "string"
+                },
+                "user_picture": {
+                    "type": "string"
+                },
+                "user_school": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

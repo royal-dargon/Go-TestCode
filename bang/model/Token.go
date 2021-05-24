@@ -9,6 +9,10 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
+type Token struct {
+	Token string `json:"token"`
+}
+
 type JwtClaims struct {
 	jwt.StandardClaims
 	UserId   string `json:"user_id"`

@@ -7,6 +7,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @Summary "注册"
+// @Description "注册一个新用户"
+// @tags register
+// @Accept json
+// @Produce json
+// @Param user body model.UserInfo true "user"
+// @Success 200 "注册成功"
+// @Failure 400 "输入格式有误"
+// @Router /registe [post]
 func Register(c *gin.Context) {
 	var user model.UserInfo
 	if err := c.BindJSON(&user); err != nil {
@@ -31,6 +40,17 @@ func Register(c *gin.Context) {
 	})
 }
 
+// @Summary "登入"
+// @Description "验证用户的信息进行登入"
+// @tags login
+// @Accept json
+// @Producer json
+// @Param User body model.UserInfo true "User"
+// @Success 200 {object} model.Token "登入成功"
+// @Failure 400 "输入格式错误"
+// @Failure 404	"用户不存在"
+// @Failure 401 "密码或者昵称输入错误"
+// @Router /login [post]
 func Login(c *gin.Context) {
 	var User model.UserInfo
 	if err := c.BindJSON(&User); err != nil {
