@@ -58,6 +58,16 @@ func MyRelease(c *gin.Context) {
 	c.JSON(200, Requirement)
 }
 
+// @Summary "我的收藏"
+// @Description "查看我的收藏"
+// @Tags homepage
+// @Accept json
+// @Produce json
+// @Param token header string true "token"
+// @Success 200 {object} []model.Requirement
+// @Failure 404 "验证失败"
+// @Failure 401 "没有找到信息"
+// @Router /user/mystore [get]
 func Mystore(c *gin.Context) {
 	token := c.Request.Header.Get("token")
 	id, err := model.VerifyToken(token)

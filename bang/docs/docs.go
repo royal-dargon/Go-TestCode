@@ -292,6 +292,47 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/user/mystore": {
+            "get": {
+                "description": "\"查看我的收藏\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "homepage"
+                ],
+                "summary": "\"我的收藏\"",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Requirement"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "没有找到信息"
+                    },
+                    "404": {
+                        "description": "验证失败"
+                    }
+                }
+            }
         }
     },
     "definitions": {

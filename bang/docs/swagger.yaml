@@ -244,4 +244,31 @@ paths:
       summary: '"我的发布"'
       tags:
       - homepage
+  /user/mystore:
+    get:
+      consumes:
+      - application/json
+      description: '"查看我的收藏"'
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Requirement'
+            type: array
+        "401":
+          description: 没有找到信息
+        "404":
+          description: 验证失败
+      summary: '"我的收藏"'
+      tags:
+      - homepage
 swagger: "2.0"
