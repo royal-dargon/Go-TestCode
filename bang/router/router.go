@@ -15,6 +15,8 @@ func Router(r *gin.Engine) {
 		v1.GET("/", handler.HomePage)
 		v1.GET("/myrelease", handler.MyRelease)
 		v1.GET("/mystore", handler.Mystore)
+		v1.GET("/myrelease/:require_id", handler.GetRequirement)
+		v1.GET("/mystore/:require_id", handler.GetRequirement2)
 	}
 	v2 := r.Group("/match")
 	{

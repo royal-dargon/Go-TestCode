@@ -28,3 +28,12 @@ func GetMyStore(Id []string) ([]Requirement, error) {
 	}
 	return temp, nil
 }
+
+// 通过id获得招募信息
+func GetRequireInfo(Id string) (Requirement, error) {
+	var temp Requirement
+	if err := DB.Table("requires").Where("require_id = ?", Id).Find(&temp).Error; err != nil {
+		return Requirement{}, err
+	}
+	return temp, nil
+}

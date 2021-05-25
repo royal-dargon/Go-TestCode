@@ -87,3 +87,57 @@ func Mystore(c *gin.Context) {
 	}
 	c.JSON(200, RequireInfo)
 }
+
+// @Summary "从我的发布中获取发布详情"
+// @Description "通过id获取详情"
+// @Tags homepage
+// @Accept json
+// @Produce json
+// @Param token header string true "token"
+// @Param require_id path string true "require_id"
+// @Success 200 {object} model.Requirement
+// @Failure 404 "验证失败"
+// @Failure 401 "获取信息失败"
+// @Router /user/myrelease/{require_id} [get]
+func GetRequirement(c *gin.Context) {
+	token := c.Request.Header.Get("token")
+	id := c.Param("require_id")
+	_, err := model.VerifyToken(token)
+	if err != nil {
+		c.JSON(404, gin.H{"message": "验证失败"})
+		return
+	}
+	temp, err1 := model.GetRequireInfo(id)
+	if err1 != nil {
+		c.JSON(401, gin.H{"message": "验证失败"})
+		return
+	}
+	c.JSON(200, temp)
+}
+
+// @Summary "从我的发布中获取发布详情"
+// @Description "通过id获取详情"
+// @Tags homepage
+// @Accept json
+// @Produce json
+// @Param token header string true "token"
+// @Param require_id path string true "require_id"
+// @Success 200 {object} model.Requirement
+// @Failure 404 "验证失败"
+// @Failure 401 "获取信息失败"
+// @Router /user/mystore/{require_id} [get]
+func GetRequirement2(c *gin.Context) {
+	token := c.Request.Header.Get("token")
+	id := c.Param("require_id")
+	_, err := model.VerifyToken(token)
+	if err != nil {
+		c.JSON(404, gin.H{"message": "验证失败"})
+		return
+	}
+	temp, err1 := model.GetRequireInfo(id)
+	if err1 != nil {
+		c.JSON(401, gin.H{"message": "验证失败"})
+		return
+	}
+	c.JSON(200, temp)
+}

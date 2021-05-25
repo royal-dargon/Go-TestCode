@@ -293,6 +293,51 @@ var doc = `{
                 }
             }
         },
+        "/user/myrelease/{require_id}": {
+            "get": {
+                "description": "\"通过id获取详情\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "homepage"
+                ],
+                "summary": "\"从我的发布中获取发布详情\"",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "require_id",
+                        "name": "require_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Requirement"
+                        }
+                    },
+                    "401": {
+                        "description": "获取信息失败"
+                    },
+                    "404": {
+                        "description": "验证失败"
+                    }
+                }
+            }
+        },
         "/user/mystore": {
             "get": {
                 "description": "\"查看我的收藏\"",
@@ -327,6 +372,51 @@ var doc = `{
                     },
                     "401": {
                         "description": "没有找到信息"
+                    },
+                    "404": {
+                        "description": "验证失败"
+                    }
+                }
+            }
+        },
+        "/user/mystore/{require_id}": {
+            "get": {
+                "description": "\"通过id获取详情\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "homepage"
+                ],
+                "summary": "\"从我的发布中获取发布详情\"",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "require_id",
+                        "name": "require_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Requirement"
+                        }
+                    },
+                    "401": {
+                        "description": "获取信息失败"
                     },
                     "404": {
                         "description": "验证失败"
