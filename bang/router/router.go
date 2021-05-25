@@ -16,4 +16,10 @@ func Router(r *gin.Engine) {
 		v1.GET("/myrelease", handler.MyRelease)
 		v1.GET("/mystore", handler.Mystore)
 	}
+	v2 := r.Group("/match")
+	{
+		v2.GET("/", handler.Match)
+		v2.GET("/:contest_id", handler.MatchInfo) //获取比赛的详细信息
+		v2.POST("/search", handler.Searcher)      // 搜索的功能
+	}
 }

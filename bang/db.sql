@@ -15,12 +15,12 @@ Create Table users (
 
 Create TABLE contest (
     contest_id BIGINT NOT NULL AUTO_INCREMENT,
-    user_id BIGINT NOT NULL,
+    contest_name VARCHAR(50) NOT NULL,
     contest_info TEXT NULL,
     contest_people VARCHAR(50) NOT NULL,
     createtime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     contest_url VARCHAR(80) NULL,
-    people_college VARCHAR(50) NOT NULL,
+    contest_kind VARCHAR(50) NOT NULL,
     PRIMARY KEY(contest_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

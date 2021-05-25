@@ -44,7 +44,7 @@ func Register(c *gin.Context) {
 // @Description "验证用户的信息进行登入"
 // @tags login
 // @Accept json
-// @Producer json
+// @Produce json
 // @Param User body model.UserInfo true "User"
 // @Success 200 {object} model.Token "登入成功"
 // @Failure 400 "输入格式错误"

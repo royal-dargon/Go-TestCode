@@ -1,4 +1,45 @@
 definitions:
+  model.Contest:
+    properties:
+      contest_id:
+        type: string
+      contest_info:
+        type: string
+      contest_kind:
+        type: string
+      contest_name:
+        type: string
+      contest_people:
+        type: string
+      contest_url:
+        type: string
+      createtime:
+        type: string
+    type: object
+  model.Requirement:
+    properties:
+      createtime:
+        type: string
+      require_id:
+        type: string
+      require_info:
+        type: string
+      require_kind:
+        type: string
+      require_number:
+        type: string
+      require_title:
+        type: string
+      required_need:
+        type: string
+      user_id:
+        type: string
+    type: object
+  model.SearchContent:
+    properties:
+      content:
+        type: string
+    type: object
   model.Token:
     properties:
       token:
@@ -39,6 +80,8 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/model.UserInfo'
+      produces:
+      - application/json
       responses:
         "200":
           description: 登入成功
@@ -53,6 +96,80 @@ paths:
       summary: '"登入"'
       tags:
       - login
+  /match:
+    get:
+      consumes:
+      - application/json
+      description: '"获取大赛页面的信息"'
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Contest'
+        "401":
+          description: 获取信息失败
+        "404":
+          description: 验证失败
+      summary: '"大赛初始页面"'
+      tags:
+      - contest
+  /match/{contest_id}:
+    get:
+      consumes:
+      - application/json
+      description: '"获取比赛的信息"'
+      parameters:
+      - description: contest_id
+        in: path
+        name: contest_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Contest'
+        "401":
+          description: 获取信息失败
+      summary: '"获取信息"'
+      tags:
+      - contest
+  /match/search:
+    post:
+      consumes:
+      - application/json
+      description: '"通过比赛名称对比赛进行搜索"'
+      parameters:
+      - description: temp
+        in: body
+        name: temp
+        required: true
+        schema:
+          $ref: '#/definitions/model.SearchContent'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Contest'
+        "401":
+          description: 查询失败
+        "404":
+          description: 请重试
+      summary: '"搜索比赛"'
+      tags:
+      - contest
   /registe:
     post:
       consumes:
@@ -75,4 +192,56 @@ paths:
       summary: '"注册"'
       tags:
       - register
+  /user:
+    get:
+      consumes:
+      - application/json
+      description: '"获取用户的基本信息"'
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.UserInfo'
+        "401":
+          description: 没有查找到该用户的信息！
+        "404":
+          description: 验证失败
+      summary: '"我的页面"'
+      tags:
+      - homepage
+  /user/myrelease:
+    get:
+      consumes:
+      - application/json
+      description: '"查看我发布的招募信息"'
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Requirement'
+            type: array
+        "401":
+          description: 获取信息失败！
+        "404":
+          description: 验证失败
+      summary: '"我的发布"'
+      tags:
+      - homepage
 swagger: "2.0"

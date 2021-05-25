@@ -13,6 +13,9 @@
                 "consumes": [
                     "application/json"
                 ],
+                "produces": [
+                    "application/json"
+                ],
                 "tags": [
                     "login"
                 ],
@@ -43,6 +46,119 @@
                     },
                     "404": {
                         "description": "用户不存在"
+                    }
+                }
+            }
+        },
+        "/match": {
+            "get": {
+                "description": "\"获取大赛页面的信息\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "contest"
+                ],
+                "summary": "\"大赛初始页面\"",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Contest"
+                        }
+                    },
+                    "401": {
+                        "description": "获取信息失败"
+                    },
+                    "404": {
+                        "description": "验证失败"
+                    }
+                }
+            }
+        },
+        "/match/search": {
+            "post": {
+                "description": "\"通过比赛名称对比赛进行搜索\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "contest"
+                ],
+                "summary": "\"搜索比赛\"",
+                "parameters": [
+                    {
+                        "description": "temp",
+                        "name": "temp",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.SearchContent"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Contest"
+                        }
+                    },
+                    "401": {
+                        "description": "查询失败"
+                    },
+                    "404": {
+                        "description": "请重试"
+                    }
+                }
+            }
+        },
+        "/match/{contest_id}": {
+            "get": {
+                "description": "\"获取比赛的信息\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "contest"
+                ],
+                "summary": "\"获取信息\"",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "contest_id",
+                        "name": "contest_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Contest"
+                        }
+                    },
+                    "401": {
+                        "description": "获取信息失败"
                     }
                 }
             }
@@ -80,9 +196,151 @@
                     }
                 }
             }
+        },
+        "/user": {
+            "get": {
+                "description": "\"获取用户的基本信息\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "homepage"
+                ],
+                "summary": "\"我的页面\"",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.UserInfo"
+                        }
+                    },
+                    "401": {
+                        "description": "没有查找到该用户的信息！"
+                    },
+                    "404": {
+                        "description": "验证失败"
+                    }
+                }
+            }
+        },
+        "/user/myrelease": {
+            "get": {
+                "description": "\"查看我发布的招募信息\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "homepage"
+                ],
+                "summary": "\"我的发布\"",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Requirement"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "获取信息失败！"
+                    },
+                    "404": {
+                        "description": "验证失败"
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "model.Contest": {
+            "type": "object",
+            "properties": {
+                "contest_id": {
+                    "type": "string"
+                },
+                "contest_info": {
+                    "type": "string"
+                },
+                "contest_kind": {
+                    "type": "string"
+                },
+                "contest_name": {
+                    "type": "string"
+                },
+                "contest_people": {
+                    "type": "string"
+                },
+                "contest_url": {
+                    "type": "string"
+                },
+                "createtime": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.Requirement": {
+            "type": "object",
+            "properties": {
+                "createtime": {
+                    "type": "string"
+                },
+                "require_id": {
+                    "type": "string"
+                },
+                "require_info": {
+                    "type": "string"
+                },
+                "require_kind": {
+                    "type": "string"
+                },
+                "require_number": {
+                    "type": "string"
+                },
+                "require_title": {
+                    "type": "string"
+                },
+                "required_need": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.SearchContent": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                }
+            }
+        },
         "model.Token": {
             "type": "object",
             "properties": {
