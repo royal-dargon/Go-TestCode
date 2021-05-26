@@ -1,5 +1,7 @@
 package model
 
+import "fmt"
+
 type Requirement struct {
 	RequireId    string `json:"require_id" gorm:"AUTO_INCREMENT"`
 	RequireTitle string `json:"require_title" gorm:"column:require_title"`
@@ -14,7 +16,7 @@ type Requirement struct {
 // 获取我的发布的函数
 func GetMyRequire(Id string) ([]Requirement, error) {
 	var temp []Requirement
-	if err := DB.Table("requires").Where("user_id = ?", Id).Find(&temp).Error; err != nil {
+	if err := DB.Table("requirements").Where("user_id = ?", Id).Find(&temp).Error; err != nil {
 		return []Requirement{}, err
 	}
 	return temp, nil
@@ -23,7 +25,7 @@ func GetMyRequire(Id string) ([]Requirement, error) {
 // 获取我的收藏的函数
 func GetMyStore(Id []string) ([]Requirement, error) {
 	var temp []Requirement
-	if err := DB.Table("requires").Where("require_id in (?)", Id).Find(&temp).Error; err != nil {
+	if err := DB.Table("requirements").Where("require_id in (?)", Id).Find(&temp).Error; err != nil {
 		return []Requirement{}, err
 	}
 	return temp, nil
@@ -32,8 +34,18 @@ func GetMyStore(Id []string) ([]Requirement, error) {
 // 通过id获得招募信息
 func GetRequireInfo(Id string) (Requirement, error) {
 	var temp Requirement
-	if err := DB.Table("requires").Where("require_id = ?", Id).Find(&temp).Error; err != nil {
+	if err := DB.Table("requirements").Where("require_id = ?", Id).Find(&temp).Error; err != nil {
 		return Requirement{}, err
+	}
+	return temp, nil
+}
+
+// 获取招募页面的信息的函数
+func RequirePage() ([]Requirement, error) {
+	var temp []Requirement
+	if err := DB.Table("requirements").Limit(10).Find(&temp).Error; err != nil {
+		fmt.Println(err)
+		return nil, err
 	}
 	return temp, nil
 }

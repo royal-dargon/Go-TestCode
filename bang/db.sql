@@ -40,7 +40,7 @@ Create TABLE user_require (
     PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-Create TABLE requires (
+Create TABLE requirements (
     require_id BIGINT NOT NULL AUTO_INCREMENT,
     user_id BIGINT NOT NULL,
     require_title VARCHAR(50) NOT NULL,

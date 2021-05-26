@@ -24,4 +24,9 @@ func Router(r *gin.Engine) {
 		v2.GET("/:contest_id", handler.MatchInfo) //获取比赛的详细信息
 		v2.POST("/search", handler.Searcher)      // 搜索的功能
 	}
+	v3 := r.Group("/requirements")
+	{
+		v3.GET("/", handler.Requirements)
+		v3.POST("/search", handler.Searcher2) // 招募页面的搜索功能
+	}
 }

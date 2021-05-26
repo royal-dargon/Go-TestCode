@@ -192,6 +192,66 @@ paths:
       summary: '"注册"'
       tags:
       - register
+  /requirements:
+    get:
+      consumes:
+      - application/json
+      description: '"获取十条招募信息并返回"'
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Requirement'
+            type: array
+        "401":
+          description: 获取失败！
+        "404":
+          description: 验证失败！
+      summary: '"招募页面"'
+      tags:
+      - requirements
+  /requirements/search:
+    post:
+      consumes:
+      - application/json
+      description: '"通过招募的名称进行搜索返回多组结果"'
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: temp
+        in: body
+        name: temp
+        required: true
+        schema:
+          $ref: '#/definitions/model.SearchContent'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Requirement'
+            type: array
+        "401":
+          description: 查询失败！
+        "404":
+          description: 验证失败！
+      summary: '"招募搜索"'
+      tags:
+      - requirements
   /user:
     get:
       consumes:

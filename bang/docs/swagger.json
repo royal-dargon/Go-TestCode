@@ -197,6 +197,97 @@
                 }
             }
         },
+        "/requirements": {
+            "get": {
+                "description": "\"获取十条招募信息并返回\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "requirements"
+                ],
+                "summary": "\"招募页面\"",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Requirement"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "获取失败！"
+                    },
+                    "404": {
+                        "description": "验证失败！"
+                    }
+                }
+            }
+        },
+        "/requirements/search": {
+            "post": {
+                "description": "\"通过招募的名称进行搜索返回多组结果\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "requirements"
+                ],
+                "summary": "\"招募搜索\"",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "temp",
+                        "name": "temp",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.SearchContent"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Requirement"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "查询失败！"
+                    },
+                    "404": {
+                        "description": "验证失败！"
+                    }
+                }
+            }
+        },
         "/user": {
             "get": {
                 "description": "\"获取用户的基本信息\"",

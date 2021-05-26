@@ -15,3 +15,12 @@ func SearchOK(content string) (Contest, error) {
 	}
 	return temp, nil
 }
+
+// 搜索招募信息的函数
+func GetResult2(content string) ([]Requirement, error) {
+	var temp []Requirement
+	if err := DB.Table("requirements").Where("requiremnets = ?", content).Limit(5).Find(&temp).Error; err != nil {
+		return nil, err
+	}
+	return temp, nil
+}
