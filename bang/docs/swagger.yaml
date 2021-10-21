@@ -219,6 +219,36 @@ paths:
       summary: '"招募页面"'
       tags:
       - requirements
+  /requirements/{require_id}:
+    get:
+      consumes:
+      - application/json
+      description: '"通过招募id查看详细信息"'
+      parameters:
+      - description: "true"
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: require_id
+        in: path
+        name: require_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Requirement'
+        "401":
+          description: 获取失败
+        "404":
+          description: 验证失败
+      summary: '"招募信息"'
+      tags:
+      - requirements
   /requirements/search:
     post:
       consumes:

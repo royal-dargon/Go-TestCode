@@ -27,6 +27,8 @@ func Router(r *gin.Engine) {
 	v3 := r.Group("/requirements")
 	{
 		v3.GET("/", handler.Requirements)
-		v3.POST("/search", handler.Searcher2) // 招募页面的搜索功能
+		v3.GET("/:require_id", handler.RequirePage) // 通过招募的id查看招募详情
+		v3.POST("/search", handler.Searcher2)       // 招募页面的搜索功能
+		//v3.GET("/release", handler.Release)
 	}
 }

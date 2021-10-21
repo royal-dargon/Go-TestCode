@@ -305,6 +305,51 @@ var doc = `{
                 }
             }
         },
+        "/requirements/{require_id}": {
+            "get": {
+                "description": "\"通过招募id查看详细信息\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "requirements"
+                ],
+                "summary": "\"招募信息\"",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "true",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "require_id",
+                        "name": "require_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Requirement"
+                        }
+                    },
+                    "401": {
+                        "description": "获取失败"
+                    },
+                    "404": {
+                        "description": "验证失败"
+                    }
+                }
+            }
+        },
         "/user": {
             "get": {
                 "description": "\"获取用户的基本信息\"",
